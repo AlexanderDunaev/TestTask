@@ -1,0 +1,21 @@
+version: '3.4'
+
+services:
+
+  api:
+    image: ${DOCKER_REGISTRY-}api
+    build:
+      context: .
+      dockerfile: Api/Dockerfile
+    depends_on:
+      - db
+
+  db:
+     image: "mcr.microsoft.com/mssql/server:2017-latest-ubuntu"
+     container_name: sql-server-db
+     environment:
+        - ACCEPT_EULA=Y
+        - SA_PASSWORD=qw123QE!@4
+        - MSSQL_PID=Express
+     ports:
+        - "1433:1433"
